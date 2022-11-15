@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Curso,Profesor
-from AppCoder.forms import FormularioCurso,FormularioProfesor
+from .models import Curso,Profesor,Estudiante,Entregable
+from AppCoder.forms import FormularioCurso,FormularioProfesor,FormularioEntregable,FormularioEstudiante
 def inicio(request):
     return render (request,"AppCoder/inicio.html")
 def cursos(request):
@@ -13,6 +13,7 @@ def profesores(request):
 def entregables(request):
     return render (request,"AppCoder/entregables.html")
 def cursos(request):
+    ##FormularioCurso
     if request.method == 'POST':
         miFormulario= FormularioCurso(request.POST)
         print(miFormulario)
@@ -24,7 +25,8 @@ def cursos(request):
     else:
         miFormulario=FormularioCurso()
     return render (request,"AppCoder/cursos.html",{"miFormulario":miFormulario})
-def formularioP(request):
+def profesores(request):
+    ##FormularioProfesor
     if request.method == 'POST':
         miFormulario= FormularioProfesor(request.POST)
         print(miFormulario)
@@ -35,7 +37,34 @@ def formularioP(request):
             return render(request,"AppCoder/inicio.html")
     else:
         miFormulario=FormularioProfesor()
-    return render (request,"AppCoder/formularioP.html",{"miFormulario":miFormulario})
+    return render (request,"AppCoder/profesores.html",{"miFormulario":miFormulario})
+def estudiantes(request):
+    ##FormularioEstudiantes
+    if request.method == 'POST':
+        miFormulario= FormularioEstudiante(request.POST)
+        print(miFormulario)
+        if miFormulario.is_valid:
+            informacion=miFormulario.cleaned_data
+            estudiante= Estudiante (nombre=informacion['nombre'], apellido=informacion['apellido'], email=informacion['email'])
+            estudiante.save()
+            return render(request,"AppCoder/inicio.html")
+    else:
+        miFormulario=FormularioEstudiante()
+    return render (request,"AppCoder/estudiantes.html",{"miFormulario":miFormulario})
+def entregable(request):
+    ##FormularioEntregable
+    if request.method == 'POST':
+        miFormulario= FormularioEntregable(request.POST)
+        print(miFormulario)
+        if miFormulario.is_valid:
+            informacion=miFormulario.cleaned_data
+            entregable= Entregable (nombre=informacion['nombre'], FechaDeEntrega=informacion['FechaDeEntrega'], entregado=informacion['entregado'])
+            entregable.save()
+            return render(request,"AppCoder/inicio.html")
+    else:
+        miFormulario=FormularioEntregable()
+    return render (request,"AppCoder/entregable.html",{"miFormulario":miFormulario})
+
 def busquedaCamada(request):
     return render (request,"AppCoder/busquedaCamada.html")
 def buscar(request):
