@@ -1,12 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos</title>
-</head>
-<body style="background-color: bisque;"> 
+{% extends 'AppCoder/padre.html' %}
+{% load static %}
+{% block ContenidoQueCambia  %}
+    <h1>Creacion de Cursos</h1>
+    {% if miFormulario.errors %}
+        <p style="color: red ;">Estan mal los datos, revisar</p>
+        {% endif %}
+        
+        <form action="" method="POST">{% csrf_token %}
+            <table>
+                {{ miFormulario.as_table }}
+            </table>
+            <input type="submit" value="Enviar">
+
+        </form>
+    <h1>Busqueda de Cursos</h1>
+        <p>Estamos buscando el:{{comision}}</p>
+        {% if cursos  %}
+        <ul>
+        {% for curso in cursos %}
+            <li>{{curso.nombre}}</li>
+            <li>{{curso.comision}}</li>
+        {% endfor %}
     
-</body>
-</html>
+        </ul>
+        {% else %}
+        <p>No hay datos con esa descripcion</p>
+        {% endif %}
+        <p style="color:red">{{respuesta}}</p>
+{% endblock  %}
