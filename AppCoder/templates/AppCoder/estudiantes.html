@@ -1,15 +1,7 @@
 {% extends 'AppCoder/padre.html' %}
 {% load static %}
 {% block ContenidoQueCambia  %}
-    <h1>Creacion de Estudiantes</h1>
-    {% if miFormulario.errors %}
-        <p style="color: red ;">Estan mal los datos, revisar</p>
-        {% endif %}
-        
-        <form action="" method="POST">{% csrf_token %}
-            <table>
-                {{ miFormulario.as_table }}
-            </table>
-            <input type="submit" value="Enviar">
-        </form>
+    
+    <li><a class="btn btn" href="CreacionEstudiante">Crear Estudiante</a>
+    <li><a class="btn btn" href="BuscadorEstudiante">Buscar Estudiante</a>
 {% endblock  %}

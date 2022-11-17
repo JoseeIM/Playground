@@ -14,12 +14,15 @@
 
         </form>
     <h1>Busqueda de Cursos</h1>
-        <p>Estamos buscando el:{{comision}}</p>
+        <form action="" method="GET">   
+            Busqueda de comison: <input type="text" name="comision" id="comision">
+            <input type="submit" value="Buscar">
+        </form> 
         {% if cursos  %}
         <ul>
         {% for curso in cursos %}
-            <li>{{curso.nombre}}</li>
-            <li>{{curso.comision}}</li>
+            <li>Nombre de curso: {{curso.nombre}}</li>
+            <li>Numero de comision:{{curso.comision}}</li>
         {% endfor %}
     
         </ul>

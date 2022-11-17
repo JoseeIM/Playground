@@ -1,7 +1,7 @@
 {% extends 'AppCoder/padre.html' %}
 {% load static %}
 {% block ContenidoQueCambia  %}
-    <h1>Creacion de Profesores</h1>
+    <h1>Creacion de Estudiantes</h1>
     {% if miFormulario.errors %}
         <p style="color: red ;">Estan mal los datos, revisar</p>
         {% endif %}
@@ -11,6 +11,5 @@
                 {{ miFormulario.as_table }}
             </table>
             <input type="submit" value="Enviar">
-
-        </form>
+        </form>  
 {% endblock  %}

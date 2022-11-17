@@ -9,11 +9,10 @@ def cursos(request):
 def estudiantes(request):
     return render (request,"AppCoder/estudiantes.html")
 def profesores(request):
-    return render (request,"AppCoder/profesores.html")
+    return render (request,"AppCoder/profesor.html")
 def entregables(request):
     return render (request,"AppCoder/entregables.html")
-def cursos(request):
-    ##FormularioCurso
+def cursos(request):##FormularioCurso
     if request.method == 'POST':
         miFormulario= FormularioCurso(request.POST)
         print(miFormulario)
@@ -25,8 +24,7 @@ def cursos(request):
     else:
         miFormulario=FormularioCurso()
     return render (request,"AppCoder/cursos.html",{"miFormulario":miFormulario})
-def profesores(request):
-    ##FormularioProfesor
+def CreacionProfesor(request):##FormularioProfesor
     if request.method == 'POST':
         miFormulario= FormularioProfesor(request.POST)
         print(miFormulario)
@@ -37,42 +35,61 @@ def profesores(request):
             return render(request,"AppCoder/inicio.html")
     else:
         miFormulario=FormularioProfesor()
-    return render (request,"AppCoder/profesores.html",{"miFormulario":miFormulario})
-def estudiantes(request):
-    ##FormularioEstudiantes
+    return render (request,"AppCoder/ProfesorCreacion.html",{"miFormulario":miFormulario})
+def CreacionEstudiantes(request):##FormularioEstudiantes
     if request.method == 'POST':
         miFormulario= FormularioEstudiante(request.POST)
         print(miFormulario)
         if miFormulario.is_valid:
             informacion=miFormulario.cleaned_data
-            estudiante= Estudiante (nombre=informacion['nombre'], apellido=informacion['apellido'], email=informacion['email'])
-            estudiante.save()
+            estudiantes= Estudiante (nombre=informacion['nombre'], apellido=informacion['apellido'],email=informacion['email'] )
+            estudiantes.save()
             return render(request,"AppCoder/inicio.html")
     else:
         miFormulario=FormularioEstudiante()
-    return render (request,"AppCoder/estudiantes.html",{"miFormulario":miFormulario})
-def entregable(request):
-    ##FormularioEntregable
+    return render (request,"AppCoder/EstudiantesCreacion.html",{"miFormulario":miFormulario})
+def CreacionEntregables(request):##FormularioEntregable
     if request.method == 'POST':
         miFormulario= FormularioEntregable(request.POST)
         print(miFormulario)
         if miFormulario.is_valid:
             informacion=miFormulario.cleaned_data
-            entregable= Entregable (nombre=informacion['nombre'], FechaDeEntrega=informacion['FechaDeEntrega'], entregado=informacion['entregado'])
+            entregable= Entregable (nombre=informacion['nombre'], FechaDeEntrega=informacion['FechaDeEntrega'],entregado=informacion['entregado'] )
             entregable.save()
             return render(request,"AppCoder/inicio.html")
     else:
         miFormulario=FormularioEntregable()
-    return render (request,"AppCoder/entregable.html",{"miFormulario":miFormulario})
-
-def busquedaCamada(request):
-    return render (request,"AppCoder/busquedaCamada.html")
-def buscar(request):
-    if request.GET['comision']:
+    return render (request,"AppCoder/EntregablesCreacion.html",{"miFormulario":miFormulario})
+def cursos(request):#BusquedaDeCursos
+    if request.GET.get('comision', False):
         comision=request.GET['comision']
         cursos=Curso.objects.filter(comision__icontains=comision)
-        return render(request,"AppCoder/inicio.html",{"cursos":cursos,"comision":comision})
+        return render(request,"AppCoder/cursos.html",{"cursos":cursos,"comision":comision})
     else:
         respuesta="No enviaste datos"
     return render(request,"AppCoder/cursos.html",{"respuesta":respuesta})
+def BuscadorEstudiantes(request):#BusquedaDeEstudiantes
+    if request.GET.get('apellido', False):
+        apellido=request.GET['apellido']
+        estudiantes=Estudiante.objects.filter(apellido__icontains=apellido)
+        return render(request,"AppCoder/EstudiantesBuscador.html",{"estudiantes":estudiantes,"apellido":apellido})
+    else:
+        respuesta="No enviaste datos"
+    return render(request,"AppCoder/EstudiantesBuscador.html",{"respuesta":respuesta})
+def BuscadorProfesor(request):#BusquedaDeProfesorS
+    if request.GET.get('apellido', False):
+        apellido=request.GET['apellido']
+        profesores=Profesor.objects.filter(apellido__icontains=apellido)
+        return render(request,"AppCoder/ProfesorBuscador.html",{"profesores":profesores,"apellido":apellido})
+    else:
+        respuesta="No enviaste datos"
+    return render(request,"AppCoder/ProfesorBuscador.html",{"respuesta":respuesta})
+def BuscadorEntregables(request):#BusquedaDeEntregables
+    if request.GET.get('nombre', False):
+        nombre=request.GET['nombre']
+        entregables=Entregable.objects.filter(nombre__icontains=nombre)
+        return render(request,"AppCoder/EntregableBuscador.html",{"entregables":entregables,"nombre":nombre})
+    else:
+        respuesta="No enviaste datos"
+    return render(request,"AppCoder/EntregableBuscador.html",{"respuesta":respuesta})
 # Create your views here.

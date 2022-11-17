@@ -11,8 +11,8 @@ class FormularioProfesor(forms.Form):
 class FormularioEstudiante(forms.Form):
     nombre=forms.CharField(max_length=40)
     apellido=forms.CharField(max_length=40)
-    email= forms.EmailField()  
+    email=forms.EmailField()
 class FormularioEntregable(forms.Form):
     nombre=forms.CharField(max_length=40)
-    FechaDeEntrega=forms.DateField()
+    Fecha_De_Entrega=forms.DateField()
     entregado=forms.BooleanField()

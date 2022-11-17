@@ -1,0 +1,24 @@
+{% extends 'AppCoder/padre.html' %}
+{% load static %}
+{% block ContenidoQueCambia  %}
+
+<h1>Busqueda de Cursos</h1>
+        <form action="" method="GET">   
+            Busqueda de Profesor (Apellido): <input type="text" name="apellido" id="apellido">
+            <input type="submit" value="Buscar">
+        </form> 
+        {% if profesores  %}
+        <ul>
+        {% for profesor in profesores %}
+            <li>Nombre de curso: {{profesor.nombre}}</li>
+            <li>Numero de comision:{{profesor.apellido}}</li>
+            <li>Numero de comision:{{profesor.email}}</li>
+            <li>Numero de comision:{{profesor.profesion}}</li>
+        {% endfor %}
+    
+        </ul>
+        {% else %}
+        <p>No hay profesores con esa descripcion</p>
+        {% endif %}
+        <p style="color:red">{{respuesta}}</p>
+{% endblock  %}
