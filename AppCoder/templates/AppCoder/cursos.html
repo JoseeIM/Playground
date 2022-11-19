@@ -1,33 +1,6 @@
 {% extends 'AppCoder/padre.html' %}
 {% load static %}
 {% block ContenidoQueCambia  %}
-    <h1>Creacion de Cursos</h1>
-    {% if miFormulario.errors %}
-        <p style="color: red ;">Estan mal los datos, revisar</p>
-        {% endif %}
-        
-        <form action="" method="POST">{% csrf_token %}
-            <table>
-                {{ miFormulario.as_table }}
-            </table>
-            <input type="submit" value="Enviar">
-
-        </form>
-    <h1>Busqueda de Cursos</h1>
-        <form action="" method="GET">   
-            Busqueda de comison: <input type="text" name="comision" id="comision">
-            <input type="submit" value="Buscar">
-        </form> 
-        {% if cursos  %}
-        <ul>
-        {% for curso in cursos %}
-            <li>Nombre de curso: {{curso.nombre}}</li>
-            <li>Numero de comision:{{curso.comision}}</li>
-        {% endfor %}
-    
-        </ul>
-        {% else %}
-        <p>No hay datos con esa descripcion</p>
-        {% endif %}
-        <p style="color:red">{{respuesta}}</p>
+    <li><a class="btn btn" href="CreacionCurso">Crear Cursos</a>
+    <li><a class="btn btn" href="BuscadorCurso">Buscar Cursos</a>
 {% endblock  %}

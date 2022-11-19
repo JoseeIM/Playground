@@ -1,13 +1,22 @@
 {% extends 'AppCoder/padre.html' %}
 {% load static %}
 {% block ContenidoQueCambia  %}
+    <h1>Busqueda de Entregables</h1>
+    <form action="" method="GET">   
+        Busqueda de entregable (Nombre): <input type="text" name="nombre" id="nombre">
+        <input type="submit" value="Buscar">
+    </form> 
+    {% if Entregables  %}
+    <ul>
+    {% for entregable in Entregables %}
+        <li>Nombre de entregable: {{entregable.nombre}}</li>
+        <li>Fecha de Entrega:{{entregable.Fecha_De_Entrega}}</li>
+        <li>Entregado:{{entregable.entregado}}</li>
+    {% endfor %}
 
-
-
-
-
-
-
-
-
+    </ul>
+    {% else %}
+    <p>No hay datos con esa descripcion</p>
+    {% endif %}
+    <p style="color:red">{{respuesta}}</p>
 {% endblock  %}

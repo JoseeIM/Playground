@@ -1,5 +1,7 @@
 from django import forms
+from django.forms.widgets import NumberInput
 
+CasosEntregado=[('True','Entregado'),('False','NoEntregado')]
 class FormularioCurso(forms.Form):
     curso=forms.CharField(max_length=40)
     comision=forms.IntegerField()
@@ -14,5 +16,5 @@ class FormularioEstudiante(forms.Form):
     email=forms.EmailField()
 class FormularioEntregable(forms.Form):
     nombre=forms.CharField(max_length=40)
-    Fecha_De_Entrega=forms.DateField()
-    entregado=forms.BooleanField()
+    Fecha_De_Entrega=forms.DateField(widget=NumberInput(attrs={'type':'date'}))
+    entregado=forms.ChoiceField(widget=forms.RadioSelect, choices=CasosEntregado)
