@@ -6,11 +6,11 @@
         Busqueda de entregable (Nombre): <input type="text" name="nombre" id="nombre">
         <input type="submit" value="Buscar">
     </form> 
-    {% if Entregables  %}
+    {% if entregables  %}
     <ul>
-    {% for entregable in Entregables %}
+    {% for entregable in entregables %}
         <li>Nombre de entregable: {{entregable.nombre}}</li>
-        <li>Fecha de Entrega:{{entregable.Fecha_De_Entrega}}</li>
+        <li>Fecha de Entrega:{{entregable.FechaDeEntrega}}</li>
         <li>Entregado:{{entregable.entregado}}</li>
     {% endfor %}
 
