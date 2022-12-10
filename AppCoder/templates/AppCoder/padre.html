@@ -21,10 +21,10 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'Inicio' %}">Inicio</a>
-                <a class="btn btn" href="Estudiantes">Estudiantes</a>
-                <a class="btn btn" href="Profesores">Profesores</a>
-                <a class="btn btn" href="Entregables">Entregables</a>
-                <a class="btn btn" href="Cursos">Cursos</a>
+                <a class="btn btn" href="/Estudiantes">Estudiantes</a>
+                <a class="btn btn" href="/Profesores">Profesores</a>
+                <a class="btn btn" href="/Entregables">Entregables</a>
+                <a class="btn btn" href="/Cursos">Cursos</a>
                 <a class="btn btn-primary" href="#signup">Iniciar</a>
             </div>
         </nav>
@@ -71,7 +71,7 @@
         <!-- Esto es lo que cambia-->
         {% block ContenidoQueCambia %}
 
-        {% endblock %}
+        {% endblock  %}
 
         <!-- Footer-->
         <footer class="footer bg-light">

@@ -1,7 +1,6 @@
 {% extends 'AppCoder/padre.html' %}
 {% load static %}
 {% block ContenidoQueCambia  %}
-    
-    <li><a class="btn btn" href="CreacionEstudiante">Crear Estudiante</a>
-    <li><a class="btn btn" href="BuscadorEstudiante">Buscar Estudiante</a>
-{% endblock  %}
+    {% load static %}
+    <a class="btn btn" href="CreacionEstudiante">Crear Estudiante</a>|<a class="btn btn" href="BuscadorEstudiante">Buscar Estudiante</a>|<a class="btn btn" href="estudiante/list">Ver Estudiante</a>
+{% endblock ContenidoQueCambia  %}

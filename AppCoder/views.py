@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Curso,Profesor,Estudiante,Entregable
 from AppCoder.forms import FormularioCurso,FormularioProfesor,FormularioEntregable,FormularioEstudiante
+from django.views.generic import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.urls import reverse_lazy
 def inicio(request):
     return render (request,"AppCoder/inicio.html")
 def cursos(request):
@@ -92,4 +96,76 @@ def BuscadorEntregables(request):#BusquedaDeEntregables
     else:
         respuesta="No enviaste datos"
     return render(request,"AppCoder/EntregablesBuscador.html",{"respuesta":respuesta})
+##MODIFICACIONES PARA EL CURSO##
+class CursoList(ListView):
+    model=Curso
+    template_name="AppCoder/curso_list.html"
+class CursoDetalle(DetailView):
+    model=Curso
+    template_name="AppCoder/curso_detalle.html"
+class CursoCreacion(CreateView):
+    model=Curso
+    success_url="/curso/list"
+    fields=['nombre','comision']
+class CursoUpdate(UpdateView):
+    model=Curso
+    success_url="/curso/list"
+    fields=['nombre','comision']
+class CursoDelete(DeleteView):
+    model=Curso
+    success_url="/curso/list"
+##MODIFICACIONES PARA ESTUDIANTES##
+class EstudianteList(ListView):
+    model=Estudiante
+    template_name="AppCoder/estudiante_list.html"
+class EstudianteDetalle(DetailView):
+    model=Estudiante
+    template_name="AppCoder/estudiante_detalle.html"
+class EstudianteCreacion(CreateView):
+    model=Estudiante
+    success_url="/estudiante/list"
+    fields=['nombre','apellido','email']
+class EstudianteUpdate(UpdateView):
+    model=Estudiante
+    success_url="/estudiante/list"
+    fields=['nombre','apellido','email']
+class EstudianteDelete(DeleteView):
+    model=Estudiante
+    success_url="/estudiante/list"
+##MODIFICACIONES PARA PORFESOR##
+class ProfesorList(ListView):
+    model=Profesor
+    template_name="AppCoder/profesor_list.html"
+class ProfesorDetalle(DetailView):
+    model=Profesor
+    template_name="AppCoder/profesor_detalle.html"
+class ProfesorCreacion(CreateView):
+    model=Profesor
+    success_url="/profesor/list"
+    fields=['nombre','apellido','email','profesion']
+class ProfesorUpdate(UpdateView):
+    model=Profesor
+    success_url="/profesor/list"
+    fields=['nombre','apellido','email','profesion']
+class ProfesorDelete(DeleteView):
+    model=Profesor
+    success_url="/entregable/list"
+##MODIFICACIONES PARA ENTREGABLES##
+class EntregableList(ListView):
+    model=Entregable
+    template_name="AppCoder/entregable_list.html"
+class EntregableDetalle(DetailView):
+    model=Entregable
+    template_name="AppCoder/entregable_detalle.html"
+class EntregableCreacion(CreateView):
+    model=Entregable
+    success_url="/entregable/list"
+    fields=['nombre','FechaDeEntrega','entregado']
+class EntregableUpdate(UpdateView):
+    model=Entregable
+    success_url="/entregable/list"
+    fields=['nombre','FechaDeEntrega','entregado']
+class EntregableDelete(DeleteView):
+    model=Entregable
+    success_url="/entregable/list"
 # Create your views here.
