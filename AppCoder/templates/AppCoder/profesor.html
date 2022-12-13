@@ -2,5 +2,5 @@
 {% load static %}
 {% block ContenidoQueCambia  %}
     
-    <a class="btn btn" href="CreacionProfesor">Crear Profesores</a>|<a class="btn btn" href="BuscadorProfesor">Buscar Profesores</a>|<a class="btn btn" href="profesor/list">Ver Profesores</a>
+    {%if user.is_superuser%}<a class="btn btn" href="CreacionProfesor">Crear Profesores</a>|{%endif%}<a class="btn btn" href="BuscadorProfesor">Buscar Profesores</a>|<a class="btn btn" href="profesor/list">Ver Profesores</a>
 {% endblock  %}

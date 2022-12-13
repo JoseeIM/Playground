@@ -2,5 +2,5 @@
 {% load static %}
 {% block ContenidoQueCambia  %}
     {% load static %}
-    <a class="btn btn" href="CreacionEstudiante">Crear Estudiante</a>|<a class="btn btn" href="BuscadorEstudiante">Buscar Estudiante</a>|<a class="btn btn" href="estudiante/list">Ver Estudiante</a>
+    {%if user.is_superuser%}<a class="btn btn" href="CreacionEstudiante">Crear Estudiante</a>|{%endif%}<a class="btn btn" href="BuscadorEstudiante">Buscar Estudiante</a>|<a class="btn btn" href="estudiante/list">Ver Estudiante</a>
 {% endblock ContenidoQueCambia  %}

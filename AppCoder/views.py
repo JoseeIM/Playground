@@ -1,21 +1,32 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Curso,Profesor,Estudiante,Entregable
-from AppCoder.forms import FormularioCurso,FormularioProfesor,FormularioEntregable,FormularioEstudiante
+from .models import Curso,Profesor,Estudiante,Entregable,Avatar,Duda
+from AppCoder.forms import FormularioCurso,FormularioProfesor,FormularioEntregable,FormularioEstudiante,SignUpForm,UserEditForm,FormularioDudas
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 def inicio(request):
-    return render (request,"AppCoder/inicio.html")
+    return render (request,"AppCoder/incio.html")
+
 def cursos(request):
     return render (request,"AppCoder/cursos.html")
+@login_required
 def estudiantes(request):
-    return render (request,"AppCoder/estudiantes.html")
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/estudiantes.html",{"url":avatares[0].imagen.url})
+@login_required
 def profesores(request):
-    return render (request,"AppCoder/profesor.html")
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/profesor.html",{"url":avatares[0].imagen.url})
+@login_required
 def entregables(request):
-    return render (request,"AppCoder/entregables.html")
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/entregables.html",{"url":avatares[0].imagen.url})
+@login_required
 def CreacionCurso(request):##FormularioCurso
     if request.method == 'POST':
         miFormulario= FormularioCurso(request.POST)
@@ -27,7 +38,8 @@ def CreacionCurso(request):##FormularioCurso
             return render(request,"AppCoder/inicio.html")
     else:
         miFormulario=FormularioCurso()
-    return render (request,"AppCoder/CursosCreacion.html",{"miFormulario":miFormulario})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/CursosCreacion.html",{"miFormulario":miFormulario,"url":avatares[0].imagen.url})
 def CreacionProfesor(request):##FormularioProfesor
     if request.method == 'POST':
         miFormulario= FormularioProfesor(request.POST)
@@ -39,7 +51,8 @@ def CreacionProfesor(request):##FormularioProfesor
             return render(request,"AppCoder/inicio.html")
     else:
         miFormulario=FormularioProfesor()
-    return render (request,"AppCoder/ProfesorCreacion.html",{"miFormulario":miFormulario})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/ProfesorCreacion.html",{"miFormulario":miFormulario,"url":avatares[0].imagen.url})
 def CreacionEstudiantes(request):##FormularioEstudiantes
     if request.method == 'POST':
         miFormulario= FormularioEstudiante(request.POST)
@@ -51,7 +64,8 @@ def CreacionEstudiantes(request):##FormularioEstudiantes
             return render(request,"AppCoder/inicio.html")
     else:
         miFormulario=FormularioEstudiante()
-    return render (request,"AppCoder/EstudiantesCreacion.html",{"miFormulario":miFormulario})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/EstudiantesCreacion.html",{"miFormulario":miFormulario,"url":avatares[0].imagen.url})
 def CreacionEntregables(request):##FormularioEntregable
     if request.method == 'POST':
         miFormulario= FormularioEntregable(request.POST)
@@ -63,7 +77,9 @@ def CreacionEntregables(request):##FormularioEntregable
             return render(request,"AppCoder/inicio.html")
     else:
         miFormulario=FormularioEntregable()
-    return render (request,"AppCoder/EntregablesCreacion.html",{"miFormulario":miFormulario})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/EntregablesCreacion.html",{"miFormulario":miFormulario,"url":avatares[0].imagen.url})
+@login_required
 def BuscadorCurso(request):#BusquedaDeCursos
     if request.GET.get('comision', False):
         comision=request.GET['comision']
@@ -71,7 +87,8 @@ def BuscadorCurso(request):#BusquedaDeCursos
         return render(request,"AppCoder/CursosBuscador.html",{"cursos":cursos,"comision":comision})
     else:
         respuesta="No enviaste datos"
-    return render(request,"AppCoder/CursosBuscador.html",{"respuesta":respuesta})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render(request,"AppCoder/CursosBuscador.html",{"respuesta":respuesta,"url":avatares[0].imagen.url})
 def BuscadorEstudiantes(request):#BusquedaDeEstudiantes
     if request.GET.get('apellido', False):
         apellido=request.GET['apellido']
@@ -79,7 +96,8 @@ def BuscadorEstudiantes(request):#BusquedaDeEstudiantes
         return render(request,"AppCoder/EstudiantesBuscador.html",{"estudiantes":estudiantes,"apellido":apellido})
     else:
         respuesta="No enviaste datos"
-    return render(request,"AppCoder/EstudiantesBuscador.html",{"respuesta":respuesta})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render(request,"AppCoder/EstudiantesBuscador.html",{"respuesta":respuesta,"url":avatares[0].imagen.url})
 def BuscadorProfesor(request):#BusquedaDeProfesorS
     if request.GET.get('apellido', False):
         apellido=request.GET['apellido']
@@ -87,7 +105,8 @@ def BuscadorProfesor(request):#BusquedaDeProfesorS
         return render(request,"AppCoder/ProfesorBuscador.html",{"profesores":profesores,"apellido":apellido})
     else:
         respuesta="No enviaste datos"
-    return render(request,"AppCoder/ProfesorBuscador.html",{"respuesta":respuesta})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render(request,"AppCoder/ProfesorBuscador.html",{"respuesta":respuesta,"url":avatares[0].imagen.url})
 def BuscadorEntregables(request):#BusquedaDeEntregables
     if request.GET.get('nombre', False):
         nombre=request.GET['nombre']
@@ -95,23 +114,24 @@ def BuscadorEntregables(request):#BusquedaDeEntregables
         return render(request,"AppCoder/EntregablesBuscador.html",{"entregables":entregables,"nombre":nombre})
     else:
         respuesta="No enviaste datos"
-    return render(request,"AppCoder/EntregablesBuscador.html",{"respuesta":respuesta})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render(request,"AppCoder/EntregablesBuscador.html",{"respuesta":respuesta,"url":avatares[0].imagen.url})
 ##MODIFICACIONES PARA EL CURSO##
 class CursoList(ListView):
     model=Curso
     template_name="AppCoder/curso_list.html"
-class CursoDetalle(DetailView):
+class CursoDetalle(LoginRequiredMixin,DetailView):
     model=Curso
     template_name="AppCoder/curso_detalle.html"
-class CursoCreacion(CreateView):
+class CursoCreacion(LoginRequiredMixin,CreateView):
     model=Curso
     success_url="/curso/list"
     fields=['nombre','comision']
-class CursoUpdate(UpdateView):
+class CursoUpdate(LoginRequiredMixin,UpdateView):
     model=Curso
     success_url="/curso/list"
     fields=['nombre','comision']
-class CursoDelete(DeleteView):
+class CursoDelete(LoginRequiredMixin,DeleteView):
     model=Curso
     success_url="/curso/list"
 ##MODIFICACIONES PARA ESTUDIANTES##
@@ -168,4 +188,78 @@ class EntregableUpdate(UpdateView):
 class EntregableDelete(DeleteView):
     model=Entregable
     success_url="/entregable/list"
+##Login y Register##
+class SingUpView(CreateView):
+    form_class= SignUpForm
+    success_url=reverse_lazy('Inicio')
+    template_name='AppCoder/registro.html'
+class AdminLoginView(LoginView):
+    template_name='AppCoder/login.html'
+class AdminLogoutView(LogoutView):
+    template_name='AppCoder/inicio.html'
+##EDICION DE PERFILES
+@login_required
+def VerPerfil(request):
+    usuario=request.user
+    if request.method=='GET':
+            nombre = usuario.username
+            email= usuario.email 
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/VerPerfil.html",{"email":email,"usuario":usuario,"url":avatares[0].imagen.url})
+@login_required
+def editarPerfil(request):
+    usuario=request.user
+    if request.method=='POST':
+        usuario_form=UserEditForm(request.POST)
+        if usuario_form.is_valid:
+            informacion=usuario_form.cleaned_data
+            usuario.username = informacion['username']
+            usuario.email=informacion['email']
+            usuario.password1=informacion['password1']
+            usuario.password2=informacion['password2']
+            usuario.save()  
+            return render (request,"AppCoder/inicio.html")
+    else:
+        usuario_form=UserEditForm(initial={'username':usuario.username, 'email':usuario.email})
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/editarPerfil.html",{"form":usuario_form,"usuario":usuario,"url":avatares[0].imagen.url})
+@login_required
+def inicio(request):
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/inicio.html",{"url":avatares[0].imagen.url})
+@login_required
+def cursos(request):
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/cursos.html",{"url":avatares[0].imagen.url})
+@login_required
+def dudas(request):
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/dudas.html",{"url":avatares[0].imagen.url})
+@login_required
+def CreacionDudas(request):##FormularioDuda
+    if request.method == 'POST':
+        miFormulario= FormularioDudas(request.POST)
+        print(miFormulario)
+        if miFormulario.is_valid:
+            informacion=miFormulario.cleaned_data
+            dudas= Duda (asunto=informacion['asunto'], materia=informacion['materia'],desarrollo=informacion['desarrollo'] )
+            dudas.save()
+            return render(request,"AppCoder/inicio.html")
+    else:
+        miFormulario=FormularioDudas()
+    avatares=Avatar.objects.filter(user=request.user.id)
+    return render (request,"AppCoder/DudaCreacion.html",{"miFormulario":miFormulario,"url":avatares[0].imagen.url})
+class DudaList(ListView):
+    model=Duda
+    template_name="AppCoder/duda_list.html"
+class DudaDetalle(DetailView):
+    model=Duda
+    template_name="AppCoder/duda_detalle.html"
+class DudaUpdate(UpdateView):
+    model=Duda
+    success_url="/dudas/list"
+    fields=['asunto','materia','desarrollo']
+class DudaDelete(DeleteView):
+    model=Duda
+    success_url="/dudas/list"
 # Create your views here.

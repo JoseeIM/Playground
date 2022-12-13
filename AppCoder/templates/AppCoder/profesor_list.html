@@ -7,11 +7,13 @@
     <ul>
         {% for profesor in object_list %}
             <li>
-                <p>NOMBRE: {{profesor.nombre}}</p>
+                <p>Profesor: {{profesor.apellido}},{{profesor.nombre}}</p>
                 <p>
-                    <a href="{% url 'DetailP' profesor.id %}">Ver</a>|
-                    <a href="{% url 'EditP' profesor.id %}">Editar</a>|
+                    <a href="{% url 'DetailP' profesor.id %}">Ver</a>
+                    {%if user.is_superuser%}
+                    |<a href="{% url 'EditP' profesor.id %}">Editar</a>|
                     <a href="{% url 'DeleteP' profesor.id %}">Borrar</a>
+                    {%endif%}
 
                 </p>
             </li>

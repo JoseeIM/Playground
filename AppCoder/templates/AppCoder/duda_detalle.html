@@ -1,0 +1,14 @@
+{% extends 'AppCoder/padre.html' %}
+{% load static %}
+{% block ContenidoQueCambia  %}
+<body>
+    <h1>Detalles Duda</h1>
+    <p>Asunto: <i>{{duda.asunto}}</i></p>
+    <p>Materia: <i>{{duda.materia}}</i></p>
+    <p>Duda: <i>{{duda.desarrollo}}</i></p>
+    <p>
+        <a href="{% url 'ListD' %}">Regresar</a>
+    </p>
+</body>
+
+{% endblock  %}

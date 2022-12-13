@@ -2,10 +2,11 @@
 {% load static %}
 {% block ContenidoQueCambia  %}
 <body>
-    <form action="" method="POST">
-        {%csrf_token%}
+    <h1>Edicion Duda</h1>
+    <form method="POST">{%csrf_token%}
         {{form.as_p}}
-        <button type="submit"> Iniciar Sesion</button>
+        <input type="submit" value="Enviar" />
     </form>
 </body>
+
 {% endblock  %}

@@ -1,4 +1,4 @@
-from django.urls import path 
+from django.urls import path
 from AppCoder import views
 urlpatterns = [
     path('', views.inicio,name="Inicio"),
@@ -30,4 +30,15 @@ urlpatterns = [
     path('entregable_detail/<pk>',views.EntregableDetalle.as_view(), name="DetailEn"),
     path('entregable_edit/<pk>',views.EntregableUpdate.as_view(), name="EditEn"),
     path('entregable_delete/<pk>',views.EntregableDelete.as_view(), name="DeleteEn"),
+    path('login',views.AdminLoginView.as_view(), name="Login"),
+    path('register',views.SingUpView.as_view(), name="Register"),
+    path('logout',views.AdminLogoutView.as_view(), name="Logout"),
+    path('editarPerfil',views.editarPerfil, name="EditarPerfil"),
+    path('Dudas', views.dudas),
+    path('CrearDudas',views.CreacionDudas),
+    path('dudas/list',views.DudaList.as_view(), name="ListD"),
+    path('duda_detail/<pk>',views.DudaDetalle.as_view(), name="DetailD"),
+    path('duda_edit/<pk>',views.DudaUpdate.as_view(), name="EditD"),
+    path('duda_delete/<pk>',views.DudaDelete.as_view(), name="DeleteD"),
+    path('VerPerfil',views.VerPerfil, name="VerPerfil"),
 ]

@@ -6,12 +6,13 @@
     <ul>
         {% for entregable in object_list %}
             <li>
-                <p>NOMBRE: {{entregable.nombre}}</p>
+                <p>Entregable: {{entregable.nombre}}</p>
                 <p>
-                    <a href="{% url 'DetailEn' entregable.id %}">Ver</a>|
-                    <a href="{% url 'EditEn' entregable.id %}">Editar</a>|
+                    <a href="{% url 'DetailEn' entregable.id %}">Ver</a>
+                    {%if user.is_superuser%}
+                    |<a href="{% url 'EditEn' entregable.id %}">Editar</a>|
                     <a href="{% url 'DeleteEn' entregable.id %}">Borrar</a>
-
+                    {%endif%}
                 </p>
             </li>
         {%endfor%}

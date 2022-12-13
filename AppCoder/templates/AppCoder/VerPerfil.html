@@ -1,0 +1,14 @@
+{% extends 'AppCoder/padre.html' %}
+{% load static %}
+{% block ContenidoQueCambia  %}
+    <h1>Perfil</h1>
+    <p>   
+        <li>Username:{{usuario}}</li> 
+        <li>E-mail:{{email}}</li> 
+        <li>Nombre:{{nombre}}</li> 
+        <li>Apellido:{{apellido}}</li>
+        <li>Avatar:<img height=50px src="{{url}}"></li>
+        <a href='/editarPerfil'>Modificar Perfil</a></li> 
+    </p> 
+
+{% endblock  %}

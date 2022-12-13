@@ -2,6 +2,6 @@
 {% load static %}
 {% block ContenidoQueCambia  %}
     
-    <a class="btn btn" href="CreacionEntregables">Crear Entregables</a>|<a class="btn btn" href="BuscadorEntregables">Buscar Entregables</a>|<a class="btn btn" href="entregable/list">Ver Entregables</a>
+    {%if user.is_superuser%}<a class="btn btn" href="CreacionEntregables">Crear Entregables</a>|{%endif%}<a class="btn btn" href="BuscadorEntregables">Buscar Entregables</a>|<a class="btn btn" href="entregable/list">Ver Entregables</a>
 
 {% endblock  %}

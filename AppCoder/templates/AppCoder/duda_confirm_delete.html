@@ -1,0 +1,14 @@
+{% extends 'AppCoder/padre.html' %}
+{% load static %}
+{% block ContenidoQueCambia  %}
+<body>
+    <h1>Eliminacion Duda</h1>
+    <form method="POST">{%csrf_token%}
+        ¿Estas seguro que deseas borrar la duda "{{object}}"?
+        <input type="submit" value="Si" />
+        <button>
+            <a href="{% url 'ListD' %}">No</a>
+        </button>
+    </form>
+</body>
+{% endblock  %}

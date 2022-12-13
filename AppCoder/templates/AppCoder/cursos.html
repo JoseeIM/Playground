@@ -1,5 +1,5 @@
 {% extends 'AppCoder/padre.html' %}
 {% load static %}
 {% block ContenidoQueCambia  %}
-    <a class="btn btn" href="CreacionCurso">Crear Cursos</a>|<a class="btn btn" href="BuscadorCurso">Buscar Cursos</a>|<a class="btn btn" href="curso/list">Ver Cursos</a>
+    {%if user.is_superuser%}<a class="btn btn" href="CreacionCurso">Crear Cursos</a>|{%endif%}<a class="btn btn" href="BuscadorCurso">Buscar Cursos</a>|<a class="btn btn" href="curso/list">Ver Cursos</a>
 {% endblock  %}
